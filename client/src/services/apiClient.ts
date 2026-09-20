@@ -11,7 +11,10 @@ import {
   CareerReadiness,
 } from '@edupath/shared';
 
-const API_BASE = '/api';
+const envApiUrl = (import.meta.env.VITE_API_URL || '').trim();
+const API_BASE = envApiUrl
+  ? (envApiUrl.endsWith('/api') ? envApiUrl : `${envApiUrl.replace(/\/+$/, '')}/api`)
+  : '/api';
 
 class ApiClient {
   private getToken(): string | null {
