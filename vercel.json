@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://edupath-server-olive.vercel.app/api/:path*"
+      "destination": "https://edupath-7jn7.onrender.com/api/:path*"
     },
     {
       "source": "/(.*)",
