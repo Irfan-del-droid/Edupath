@@ -21,6 +21,10 @@ build/
 Thumbs.db
 
 # Storage fallbacks
-uploads/
-storage/
+/uploads/
+/storage/
+/server/uploads/
+/server/storage/
 .pglite/
+.pglite_data/
+server/.pglite_data/
