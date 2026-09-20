@@ -5,19 +5,23 @@ import { seedDatabase } from './db/seed.js';
 
 async function startServer() {
   try {
-    console.log('⚡ Initializing EduPath backend systems...');
-    await getDb();
-
-    // Auto-seed demo persona Irfan on first launch
-    await seedDatabase();
-
     const server = app.listen(config.port, () => {
       console.log(`==================================================`);
-      console.log(`🚀 EduPath Backend Running on http://localhost:${config.port}`);
-      console.log(`🎯 API Base: http://localhost:${config.port}/api`);
+      console.log(`🚀 EduPath Backend Running on port ${config.port}`);
+      console.log(`🎯 API Base: /api`);
       console.log(`💡 Demo Account: irfan@edupath.ai / password123`);
       console.log(`==================================================`);
     });
+
+    console.log('⚡ Initializing EduPath backend database...');
+    await getDb();
+
+    // Auto-seed demo persona Irfan on first launch
+    try {
+      await seedDatabase();
+    } catch (seedErr) {
+      console.warn('⚠️ Seeding warning (non-fatal):', seedErr);
+    }
 
     const shutdown = () => {
       console.log('Shutting down server gracefully...');
