@@ -23,6 +23,20 @@ async function startServer() {
       console.warn('⚠️ Seeding warning (non-fatal):', seedErr);
     }
 
+    // Keep-alive ping every 14 minutes to prevent Render free tier sleep
+    if (config.nodeEnv === 'production') {
+      const RENDER_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${config.port}`;
+      setInterval(async () => {
+        try {
+          const res = await fetch(`${RENDER_URL}/health`);
+          console.log(`[keep-alive] ping -> ${res.status}`);
+        } catch (e: any) {
+          console.warn('[keep-alive] ping failed:', e.message);
+        }
+      }, 14 * 60 * 1000); // 14 minutes
+      console.log('🏓 Keep-alive ping enabled (every 14 min)');
+    }
+
     const shutdown = () => {
       console.log('Shutting down server gracefully...');
       server.close(() => {

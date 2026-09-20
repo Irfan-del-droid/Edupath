@@ -6,24 +6,31 @@ import apiRouter from './routes/index.js';
 
 const app = express();
 
-// CORS setup
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (
-        origin === config.clientUrl ||
-        origin.endsWith('.vercel.app') ||
-        origin.includes('localhost') ||
-        origin.includes('127.0.0.1')
-      ) {
-        return callback(null, true);
-      }
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // Allow all .vercel.app domains, localhost, and the configured client URL
+    if (
+      !origin ||
+      origin === config.clientUrl ||
+      origin.endsWith('.vercel.app') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1')
+    ) {
       return callback(null, true);
-    },
-    credentials: true,
-  })
-);
+    }
+    return callback(null, true); // Allow all in production for now
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-request-id'],
+  optionsSuccessStatus: 200, // Some browsers (IE11) choke on 204
+};
+
+// CORS setup — must be before all routes
+app.use(cors(corsOptions));
+
+// Handle OPTIONS preflight explicitly for all routes
+app.options('*', cors(corsOptions));
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
@@ -43,12 +50,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Health check
+// Health check — used by keep-alive pings to prevent Render free tier sleep
 app.get('/health', (req: Request, res: Response) => {
   res.json({
     status: 'ok',
     system: 'EduPath AI Career Navigation Engine',
     timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
   });
 });
 
