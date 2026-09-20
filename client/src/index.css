@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-paper: #F9F9F8;
+    --text-ink: #111111;
+    --border-rule: #E5E5E0;
+    --accent-blue: #0D52FF;
+  }
+
+  body {
+    background-color: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+}
+
+/* Editorial Hairline Grid & Rule Utilities */
+.rule-b {
+  border-bottom: 1px solid var(--border-rule);
+}
+.rule-t {
+  border-top: 1px solid var(--border-rule);
+}
+.rule-r {
+  border-right: 1px solid var(--border-rule);
+}
+.rule-l {
+  border-left: 1px solid var(--border-rule);
+}
+.rule-all {
+  border: 1px solid var(--border-rule);
+}
+
+.rule-dark-b {
+  border-bottom: 1px solid #111111;
+}
+.rule-dark-t {
+  border-top: 1px solid #111111;
+}
+.rule-dark-all {
+  border: 1px solid #111111;
+}
+
+/* Editorial Micro-Label Typography */
+.label-figure {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem; /* 11px */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: #555555;
+}
+
+.label-metric {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+/* Technical Monospace Snippets */
+.technical-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+}
+
+/* Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F4F1;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4D4CE;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #111111;
+}
+
+/* Editorial Background Grid */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(17, 17, 17, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
+}
+@media (max-width: 768px) {
+  .bg-grid {
+    background-size: 20px 20px;
+    background-image: 
+      linear-gradient(to right, rgba(17, 17, 17, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(17, 17, 17, 0.02) 1px, transparent 1px);
+  }
+}
