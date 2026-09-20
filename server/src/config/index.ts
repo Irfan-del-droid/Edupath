@@ -8,7 +8,7 @@ dotenv.config();
 export const config = {
   port: parseInt(process.env.PORT || '5000', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
-  clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
+  clientUrl: process.env.CLIENT_URL || 'https://edupath-server-ecbceqgzf-shek-irfan-ss-projects.vercel.app',
   databaseUrl: process.env.DATABASE_URL || '',
   jwtSecret: process.env.JWT_SECRET || 'edupath_editorial_jwt_secret_super_secure_key_2026',
   llm: {

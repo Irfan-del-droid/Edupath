@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: edupath-server
+    runtime: node
+    rootDir: ./
+    buildCommand: npm install && npm run build:shared && npm run build:server
+    startCommand: npm run start --workspace=server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        value: https://edupath-server-ecbceqgzf-shek-irfan-ss-projects.vercel.app
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 5000
